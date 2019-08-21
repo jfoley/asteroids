@@ -1,0 +1,66 @@
+require 'rack'
+require 'json'
+
+$clients = {}
+
+def response(env)
+  req = Rack::Request.new(env)
+  if(req.GET()['method'] == "hello")
+    return hello(env, req)
+  end
+  
+  if(req.GET()['method'] == "step")
+    return step(env, req)
+  end
+  
+  if(req.GET()['method'] == "status")
+    return status(env, req)
+  end
+  
+  if(req.GET()['method'] == "reset")
+    return reset(env, req)
+  end
+end
+
+def hello(env, req)
+  identifier = req.GET()['identifier']
+  $clients[identifier] = req.GET()['ship']
+  if($clients.size() > 1)
+    return other_clients(identifier)
+  end
+  return status(env, req)
+end
+
+def step(env, req)
+  identifier = req.GET()['identifier']
+  $clients[identifier] = req.GET()['events']
+  return other_clients(identifier)
+end
+
+def reset(env, req)
+  $clients = {}
+end
+
+def status(env, req)
+  return "length: #{$clients.size()} clients: #{$clients.to_s}"
+end
+
+def other_clients(identifier)
+  response = ""
+  $clients.each_pair {|key, value|
+    if key != identifier
+      response += value.to_s
+    end
+  }
+  return response
+end
+
+app = proc do |env|
+    return [200, { "Content-Type" => "text/html" }, response(env)]
+end
+
+use Rack::CommonLogger, STDOUT
+use Rack::ShowExceptions
+
+run app
+

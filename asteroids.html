@@ -1,0 +1,44 @@
+<html>
+ <head>
+  <script type="text/javascript" src="queue.js"></script>
+  <script type="text/javascript" src="math.js"></script>
+  <script type="text/javascript" src="networking.js"></script>
+  <script type="text/javascript" src="input.js"></script>
+  <script type="text/javascript" src="input_manager.js"></script>
+  <script type="text/javascript" src="actor.js"></script>
+  <script type="text/javascript" src="effect.js"></script>
+  <script type="text/javascript" src="particle.js"></script>
+  <script type="text/javascript" src="ship.js"></script>
+  <script type="text/javascript" src="engine.js"></script>
+  <script type="text/javascript" src="asteroid.js"></script>
+  <script type="text/javascript" src="big_asteroid.js"></script>
+  <script type="text/javascript" src="enemy_manager.js"></script>
+  <script type="text/javascript" src="remote_ship.js"></script>
+  <script type="text/javascript" src="canvastext.js"></script>
+  <script type="text/javascript" src="prototype.js"></script>
+  <script type="application/x-javascript">
+	var The_Engine;
+	
+  
+    function init() {
+		The_Engine = new Engine();
+		The_Engine.init();
+    }
+  </script>
+ </head>
+ <body onload="init();">
+   <!--
+   Left: <div id="left">false</div>
+   Right: <div id="right">false</div>
+   Space: <div id="space">false</div>
+   Actors: <div id="actors">0</div>
+   Particles: <div id="particles">0</div>
+   Bullets: <div id="bullets">0</div>
+   Momentary Sources: <div id="momentaries">0</div>
+   Sparks: <div id="sparks">0</div>
+   Enemies: <div id="enemies">0</div>
+	-->
+	Position: <div id="pos">x:0, y:0</div>
+   <canvas id="canvas" width="600" height="400"></canvas>
+ </body>
+</html>
